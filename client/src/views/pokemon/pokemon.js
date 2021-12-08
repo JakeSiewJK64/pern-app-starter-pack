@@ -22,16 +22,13 @@ class Pokemon extends Component {
         return (
             <div className="pokemon">
                 <h2>Pokemon page</h2>
-                <div className="customers">
-                    <h2>Customers</h2>
-                    <ul>
-                        {
-                            data.map(customer => <li key={customer.id}>{customer.firstName} {customer.lastName}</li>)
-                        }
-                    </ul>
-                </div>
-            </div>
+                <ul>
 
+                    {
+                        this.state.pokemons.map(pokemon => <li key={pokemon.id}>{pokemon.name}: {pokemon.trainer}</li>)
+                    }
+                </ul>
+            </div>
         );
     }
 }
