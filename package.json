@@ -4,7 +4,8 @@
   "description": "boiler plate for react express",
   "main": "server.js",
   "scripts": {
-    "start": "npm i && node server.js"
+    "start": "npm i && node server.js",
+    "heroku-postbuild": "cd client && npm install && npm start"
   },
   "author": "JakeSiewJK64",
   "license": "MIT",
