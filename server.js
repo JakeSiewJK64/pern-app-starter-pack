@@ -8,14 +8,6 @@ const pool = require('./database');
 app.use(cors());
 app.use(express.json()); // => allows us to access the req.body
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build/index.html"));
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is starting on port ${PORT}`);
-});
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 }
@@ -36,5 +28,13 @@ app.get('/api/pokemon', cors(), async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is starting on port ${PORT}`);
 });
 
