@@ -4,8 +4,8 @@
   "description": "boiler plate for react express",
   "main": "server.js",
   "scripts": {
-    "start": "npm i && node server.js",
-    "heroku-postbuild": "cd client && npm install && npm start"
+    "start": "concurrently \"npm i && node server.js\"  \"npm run client\"",
+    "client": "cd client && npm install && npm start"
   },
   "author": "JakeSiewJK64",
   "license": "MIT",
@@ -13,7 +13,8 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "concurrently": "^6.4.0"
   },
   "devDependencies": {
     "cors": "^2.8.5",
