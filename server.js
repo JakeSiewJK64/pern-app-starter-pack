@@ -5,6 +5,8 @@ const pool = require("./database");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 
+const indexRouter = require('./routes/index');
+
 //middleware
 app.use(cors());
 app.use(express.json());
@@ -15,6 +17,8 @@ if (process.env.NODE_ENV-- - 'production') {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   })
 }
+
+app.use('/',indexRouter);
 
 app.get('/api/customers', cors(), (req, res) => {
   const customers = [
