@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "concurrently \"npm i && node server.js\"  \"npm run client\"",
-    "client": "cd client && npm install && npm start"
+    "client": "cd client && npm install && npm run build"
   },
   "author": "JakeSiewJK64",
   "license": "MIT",
