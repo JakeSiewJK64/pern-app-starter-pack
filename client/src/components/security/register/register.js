@@ -1,6 +1,7 @@
-import { Component, Fragment, useState } from "react";
+import { Fragment, useState } from "react";
+import { toast } from "react-toastify";
 
-const Register = () => {
+const Register = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -29,8 +30,16 @@ const Register = () => {
         body: JSON.stringify(body),
       });
 
-      const paraseRes = await response.json();
-      console.log(paraseRes);
+      const parseRes = await response.json();
+      
+      if (parseRes.jwtToken) {
+        localStorage.setItem("token", parseRes.jwtToken);
+        setAuth(true);
+        toast.success("Register Complete!");
+      } else {
+        setAuth(false);
+        toast.error(parseRes);
+      }
     } catch (err) {
       console.log(err.message);
     }

@@ -29,10 +29,10 @@ function App() {
             exact
             path="/"
             element={
-              !isAuthenticated ? (
+              isAuthenticated ? (
                 <Home setAuth={setAuth} />
               ) : (
-                <Navigate to="/authenticate/login" />
+                <Navigate to="/authentication/login" />
               )
             }
           />
@@ -40,10 +40,10 @@ function App() {
             exact
             path="/customers"
             element={
-              !isAuthenticated ? (
+              isAuthenticated ? (
                 <Customers setAuth={setAuth} />
               ) : (
-                <Navigate to="/authenticate/login" />
+                <Navigate to="/authentication/login" />
               )
             }
           />
@@ -51,10 +51,10 @@ function App() {
             exact
             path="/pokemon"
             element={
-              !isAuthenticated ? (
+              isAuthenticated ? (
                 <Pokemon setAuth={setAuth} />
               ) : (
-                <Navigate to="/authenticate/login" />
+                <Navigate to="/authentication/login" />
               )
             }
           ></Route>
@@ -62,24 +62,22 @@ function App() {
             exact
             path="/authentication/login"
             element={
-              <Login setAuth={setAuth} />
-              //   isAuthenticated ? (
-              //     <Login setAuth={setAuth} />
-              //   ) : (
-              //     <Navigate to="/" />
-              //   )
+              !isAuthenticated ? (
+                <Login setAuth={setAuth} />
+              ) : (
+                <Navigate to="/" />
+              )
             }
           ></Route>
           <Route
             exact
             path="/authentication/register"
             element={
-              <Register setAuth={setAuth} />
-              //   isAuthenticated ? (
-              // <Register setAuth={setAuth} />
-              //   ) : (
-              //     <Navigate to="/" />
-              //   )
+              !isAuthenticated ? (
+                <Register setAuth={setAuth} />
+              ) : (
+                <Navigate to="/" />
+              )
             }
           ></Route>
         </Routes>

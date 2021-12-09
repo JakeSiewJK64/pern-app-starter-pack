@@ -27,10 +27,14 @@ router.post("/register", validInfo, async (req, res) => {
       [name, email, bcryptPassword]
     );
 
-    const jwtToken = jwtGenerator(newUser.rows[0].user_id);
+    var newuser = await pool.query("SELECT * FROM users WHERE user_email = $1", [
+      email,
+    ]);
+
+    const jwtToken = jwtGenerator(newuser.rows[0].user_email);
     return res.json({ jwtToken });
   } catch (error) {
-    console.log(err.message);
+    console.log(error.message);
     res.status(500).send("Server error");
   }
 });

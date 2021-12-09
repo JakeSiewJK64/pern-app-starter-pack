@@ -10,7 +10,6 @@ export default function Customers() {
                 .then(res => res.json())
                 .then(data => {
                     setData(data);
-                    console.log(data);
                 });
         };
         fetchData();
