@@ -40,8 +40,9 @@ router.post("/register", validInfo, async (req, res) => {
 });
 
 router.post("/login", validInfo, async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const user = await pool.query("SELET * FROM users WHERE user_email = $1", [
+    const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
       email,
     ]);
 
@@ -59,9 +60,9 @@ router.post("/login", validInfo, async (req, res) => {
     }
 
     const jwtToken = jwtGenerator(user.rows[0].user_id);
-    return res.json(jwtToken);
+    return res.json({ jwtToken });
   } catch (error) {
-    console.log(err.message);
+    console.log(error.message);
     res.status(500).send("Server Error!");
   }
 });
@@ -70,7 +71,7 @@ router.post("/verify", authorize, (req, res) => {
   try {
     res.json(true);
   } catch (error) {
-    console.log(err.message);
+    console.log(error.message);
     res.status(500).send("Server Error!");
   }
 });
