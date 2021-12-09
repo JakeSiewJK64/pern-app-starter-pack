@@ -12,10 +12,10 @@ const Home = ({ setAuth }) => {
 
   const getProfile = async () => {
     try {
-      const response = await fetch("/userprofile", {
+      const response = await fetch("http://localhost:5000/authentication/userprofile", {
         method: "GET",
         headers: {
-          token: localStorage.token,
+          token: localStorage.token
         },
       });
 

@@ -3,8 +3,8 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const pool = require("../../database");
 
-const validInfo = require("../authentication/validInfo");
-const authorize = require("../authentication/authorize");
+const validInfo = require("./validInfo");
+const authorize = require("./authorize");
 const jwtGenerator = require("../../utils/jwtGenerator");
 
 router.post("/register", validInfo, async (req, res) => {
@@ -27,9 +27,10 @@ router.post("/register", validInfo, async (req, res) => {
       [name, email, bcryptPassword]
     );
 
-    var newuser = await pool.query("SELECT * FROM users WHERE user_email = $1", [
-      email,
-    ]);
+    var newuser = await pool.query(
+      "SELECT * FROM users WHERE user_email = $1",
+      [email]
+    );
 
     const jwtToken = jwtGenerator(newuser.rows[0].user_email);
     return res.json({ jwtToken });

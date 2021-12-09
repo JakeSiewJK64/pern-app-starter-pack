@@ -1,4 +1,4 @@
-import { Component, Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import { toast } from "react-toastify";
 
 const Login = ({ setAuth }) => {

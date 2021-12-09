@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import {
   Route,
   Routes,
@@ -17,9 +17,29 @@ import Login from "./components/security/login/login";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const checkAuthenticated = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/authentication/verify", {
+        method: "POST",
+        headers: {
+          jwt_token: localStorage.token,
+        },
+      });
+
+      const parseRes = await res.json();
+      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
+
+  useEffect(() => {
+    checkAuthenticated();
+  }, []);
 
   return (
     <Fragment>

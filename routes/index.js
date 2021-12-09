@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var path = require("path");
 var cors = require("cors");
+var authorization = require('../routes/authentication/authorize');
 
 app = express();
 app.use(cors());
@@ -32,9 +33,11 @@ app.get("/api/pokemon", cors(), async (req, res) => {
   }
 });
 
-app.get("/userprofile", cors(), async (req, res) => {
+app.get("/api/userprofile", authorization, async (req, res) => {
   try {
-    const user = await pool.query('SELECT * FROM users');
+    const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+      req.user.id,
+    ]);
     console.log(user.rows);
     res.json(user.rows[0]);
   } catch (error) {
