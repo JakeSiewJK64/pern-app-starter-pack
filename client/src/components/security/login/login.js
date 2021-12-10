@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
 import { toast } from "react-toastify";
 
-const logger = require("../../../../../utils/logger");
 
 const Login = ({ setAuth }) => {
   // setting default state
@@ -50,10 +49,6 @@ const Login = ({ setAuth }) => {
         toast.error(parseRes);
       }
     } catch (error) {
-      logger.log({
-        level: "info",
-        message: `${error.message}`,
-      });
     }
   };
 
