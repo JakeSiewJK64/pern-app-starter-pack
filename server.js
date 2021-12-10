@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.static("client/build"));
 
 app.use("/", indexRouter);
-app.use("/authentication", authRouter);
+app.use("/auth", authRouter);
 app.use("/api", require("./routes/index"));
 
 app.get("*", (req, res) => {

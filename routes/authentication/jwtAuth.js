@@ -7,6 +7,7 @@ const validInfo = require("./validInfo");
 const authorize = require("./authorize");
 const jwtGenerator = require("../../utils/jwtGenerator");
 const logger = require("../../utils/logger");
+
 router.post("/register", validInfo, async (req, res) => {
   const { email, name, password } = req.body;
 

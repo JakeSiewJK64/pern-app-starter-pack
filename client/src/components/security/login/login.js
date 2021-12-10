@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
@@ -30,7 +31,7 @@ const Login = ({ setAuth }) => {
         password,
       };
 
-      const response = await fetch("/authentication/login", {
+      const response = await fetch("/auth/login", {
         method: "post",
         headers: {
           "Content-type": "application/json",
@@ -75,6 +76,7 @@ const Login = ({ setAuth }) => {
           />
           <button className="btn btn-warning btn-block">Login</button>
         </form>
+        <Link to="/authentication/register">Don't have an account? Sign up!</Link>
       </div>
     </Fragment>
   );

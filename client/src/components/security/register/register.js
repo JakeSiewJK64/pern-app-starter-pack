@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Register = ({ setAuth }) => {
@@ -22,7 +23,7 @@ const Register = ({ setAuth }) => {
         name,
       };
 
-      const response = await fetch("/authentication/register", {
+      const response = await fetch("/auth/register", {
         method: "post",
         headers: {
           "Content-type": "application/json",
@@ -40,8 +41,7 @@ const Register = ({ setAuth }) => {
         setAuth(false);
         toast.error(parseRes);
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   return (
@@ -78,6 +78,7 @@ const Register = ({ setAuth }) => {
           </button>
         </form>
       </div>
+      <Link to="/authentication/login">Got an account? Login</Link>
     </Fragment>
   );
 };

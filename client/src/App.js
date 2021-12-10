@@ -20,7 +20,7 @@ function App() {
 
   const checkAuthenticated = async () => {
     try {
-      const res = await fetch("/authentication/verify", {
+      const res = await fetch("/auth/verify", {
         method: "POST",
         headers: {
           jwt_token: localStorage.token,
@@ -37,8 +37,7 @@ function App() {
         setIsAuthenticated(false);
       }
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const setAuth = (boolean) => {
@@ -55,6 +54,29 @@ function App() {
     <Fragment>
       <Router>
         <Switch>
+          <Route
+            exact
+            path="/authentication/register"
+            exact
+            render={(props) =>
+              isAuthenticated ? (
+                <Redirect to="/" />
+              ) : (
+                <Register {...props} setAuth={setAuth} />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/authentication/login"
+            render={(props) =>
+              !isAuthenticated ? (
+                <Login {...props} setAuth={setAuth} />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
           <Route
             exact
             path="/"
@@ -87,36 +109,13 @@ function App() {
                 <Redirect to="/authentication/login" />
               )
             }
-          ></Route>
-          <Route
-            exact
-            path="/authentication/login"
-            render={(props) =>
-              !isAuthenticated ? (
-                <Login {...props} setAuth={setAuth} />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          ></Route>
-          <Route
-            exact
-            path="/authentication/register"
-            exact
-            render={(props) =>
-              !isAuthenticated ? (
-                <Register {...props} setAuth={setAuth} />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          ></Route>
+          />
           <Route
             exact
             path="*"
             exact
             render={(props) => <div>404 not found</div>}
-          ></Route>
+          />
         </Switch>
       </Router>
     </Fragment>
