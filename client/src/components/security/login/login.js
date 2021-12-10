@@ -2,7 +2,6 @@ import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
 const Login = ({ setAuth }) => {
   // setting default state
   const [inputs, setInputs] = useState({
@@ -49,8 +48,7 @@ const Login = ({ setAuth }) => {
         setAuth(false);
         toast.error(parseRes);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   return (
@@ -76,7 +74,11 @@ const Login = ({ setAuth }) => {
           />
           <button className="btn btn-warning btn-block">Login</button>
         </form>
-        <Link to="/authentication/register">Don't have an account? Sign up!</Link>
+      </div>
+      <div className="d-flex justify-content-center">
+        <Link to="/authentication/register">
+          Don't have an account? Sign up!
+        </Link>
       </div>
     </Fragment>
   );

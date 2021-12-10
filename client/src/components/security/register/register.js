@@ -78,7 +78,9 @@ const Register = ({ setAuth }) => {
           </button>
         </form>
       </div>
-      <Link to="/authentication/login">Got an account? Login</Link>
+      <div className="d-flex justify-content-center">
+        <Link to="/authentication/login">Got an account? Login</Link>
+      </div>
     </Fragment>
   );
 };
