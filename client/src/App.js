@@ -28,13 +28,8 @@ function App() {
       });
 
       const parseRes = await res.json();
-
-      if (parseRes) {
-        setIsAuthenticated(true);
+      if(parseRes) {
         setIsLoading(false);
-      } else {
-        setIsLoading(false);
-        setIsAuthenticated(false);
       }
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
     } catch (error) {}
@@ -82,7 +77,10 @@ function App() {
             path="/"
             render={(props) =>
               isAuthenticated ? (
-                <Home {...props} setAuth={setAuth} />
+                <Home
+                  {...props}
+                  setAuth={setAuth}
+                />
               ) : (
                 <Redirect to="/authentication/login" />
               )

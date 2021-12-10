@@ -3,7 +3,6 @@ import "./pokemon.css";
 
 const Pokemon = ({ setAuth }) => {
   const [pokemon, setPokemons] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,7 +14,6 @@ const Pokemon = ({ setAuth }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setIsLoading(false);
           setPokemons(data);
         });
     };
