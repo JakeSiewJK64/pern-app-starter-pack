@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
 var path = require("path");
-var pool = require('../database');
+var pool = require("../database");
 var cors = require("cors");
-var authorization = require('../routes/authentication/authorize');
-
+var authorization = require("../routes/authentication/authorize");
+const logger = require("../utils/logger");
 app = express();
 app.use(cors());
 
@@ -30,7 +30,10 @@ router.get("/api/pokemon", cors(), async (req, res) => {
     const pokemon = await pool.query("SELECT * FROM A_POKEMON");
     res.json(pokemon.rows);
   } catch (err) {
-    console.log(err);
+    logger.log({
+      level: "info",
+      message: `${err.message}`,
+    });
   }
 });
 

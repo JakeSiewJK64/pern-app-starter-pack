@@ -14,6 +14,8 @@ import Home from "./components/home/home";
 import Register from "./components/security/register/register";
 import Login from "./components/security/login/login";
 
+const logger = require("../../utils/logger");
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +40,10 @@ function App() {
       }
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
     } catch (error) {
-      console.log(error.message);
+      logger.log({
+        level: "info",
+        message: `${error.message}`,
+      });
     }
   };
 

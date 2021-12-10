@@ -1,6 +1,8 @@
 import { Fragment, useState } from "react";
 import { toast } from "react-toastify";
 
+const logger = require("../../../../../utils/logger");
+
 const Login = ({ setAuth }) => {
   // setting default state
   const [inputs, setInputs] = useState({
@@ -34,22 +36,24 @@ const Login = ({ setAuth }) => {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       });
-
 
       const parseRes = await response.json();
 
-      if(parseRes.jwtToken){
+      if (parseRes.jwtToken) {
         localStorage.setItem("token", parseRes.jwtToken);
         setAuth(true);
         toast.success("Login Complete!");
-      }else {
+      } else {
         setAuth(false);
         toast.error(parseRes);
       }
     } catch (error) {
-      console.log(error.msg);
+      logger.log({
+        level: "info",
+        message: `${error.message}`,
+      });
     }
   };
 

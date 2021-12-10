@@ -2,6 +2,8 @@ import logo from "../../img/logo.svg";
 import "./home.css";
 import React, { Fragment, useEffect, useState } from "react";
 
+const logger = require("../../../../utils/logger");
+
 const Home = ({ setAuth }) => {
   const [name, setName] = useState("");
 
@@ -22,7 +24,10 @@ const Home = ({ setAuth }) => {
       const parseRes = await response.json();
       setName(parseRes.user_name);
     } catch (error) {
-      console.log(error);
+      logger.log({
+        level: "info",
+        message: `${error.message}`,
+      });
     }
   };
 

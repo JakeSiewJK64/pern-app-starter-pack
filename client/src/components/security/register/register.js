@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import { toast } from "react-toastify";
 
+const logger = require("../../../../../utils/logger");
 const Register = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
     email: "",
@@ -31,7 +32,7 @@ const Register = ({ setAuth }) => {
       });
 
       const parseRes = await response.json();
-      
+
       if (parseRes.jwtToken) {
         localStorage.setItem("token", parseRes.jwtToken);
         setAuth(true);
@@ -41,7 +42,10 @@ const Register = ({ setAuth }) => {
         toast.error(parseRes);
       }
     } catch (err) {
-      console.log(err.message);
+      logger.log({
+        level: "info",
+        message: `${err.message}`,
+      });
     }
   };
 

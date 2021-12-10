@@ -6,7 +6,7 @@ const pool = require("../../database");
 const validInfo = require("./validInfo");
 const authorize = require("./authorize");
 const jwtGenerator = require("../../utils/jwtGenerator");
-
+const logger = require("../../utils/logger");
 router.post("/register", validInfo, async (req, res) => {
   const { email, name, password } = req.body;
 
@@ -35,7 +35,10 @@ router.post("/register", validInfo, async (req, res) => {
     const jwtToken = jwtGenerator(newuser.rows[0].user_email);
     return res.json({ jwtToken });
   } catch (error) {
-    console.log(error.message);
+    logger.log({
+      level: "info",
+      message: `${error.message}`,
+    });
     res.status(500).send("Server error");
   }
 });
@@ -63,7 +66,10 @@ router.post("/login", validInfo, async (req, res) => {
     const jwtToken = jwtGenerator(user.rows[0].user_id);
     return res.json({ jwtToken });
   } catch (error) {
-    console.log(error.message);
+    logger.log({
+      level: "info",
+      message: `${error.message}`,
+    });
     res.status(500).send("Server Error!");
   }
 });
@@ -72,7 +78,10 @@ router.post("/verify", authorize, (req, res) => {
   try {
     res.json(true);
   } catch (error) {
-    console.log(error.message);
+    logger.log({
+      level: "info",
+      message: `${error.message}`,
+    });
     res.status(500).send("Server Error!");
   }
 });
@@ -84,7 +93,10 @@ router.get("/userprofile", authorize, async (req, res) => {
     ]);
     res.json(user.rows[0]);
   } catch (error) {
-    console.log(error.message);
+    logger.log({
+      level: "info",
+      message: `${error.message}`,
+    });
   }
 });
 
