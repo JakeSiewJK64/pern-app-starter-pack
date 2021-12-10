@@ -1,10 +1,10 @@
 import "./App.css";
 import React, { Fragment, useState, useEffect } from "react";
 import {
-  Route,
-  Routes,
   BrowserRouter as Router,
-  Navigate,
+  Route,
+  Switch,
+  Redirect,
 } from "react-router-dom";
 
 // components
@@ -16,6 +16,7 @@ import Login from "./components/security/login/login";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const checkAuthenticated = async () => {
     try {
@@ -27,6 +28,14 @@ function App() {
       });
 
       const parseRes = await res.json();
+
+      if (parseRes) {
+        setIsAuthenticated(true);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+        setIsAuthenticated(false);
+      }
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
     } catch (error) {
       console.log(error.message);
@@ -41,66 +50,75 @@ function App() {
     checkAuthenticated();
   }, []);
 
-  return (
+  return isLoading ? (
+    <div>loading</div>
+  ) : (
     <Fragment>
       <Router>
-        <Routes>
+        <Switch>
           <Route
             exact
             path="/"
-            element={
+            render={(props) =>
               isAuthenticated ? (
-                <Home setAuth={setAuth} />
+                <Home {...props} setAuth={setAuth} />
               ) : (
-                <Navigate to="/authentication/login" />
+                <Redirect to="/authentication/login" />
               )
             }
           />
           <Route
             exact
             path="/customers"
-            element={
+            render={(props) =>
               isAuthenticated ? (
-                <Customers setAuth={setAuth} />
+                <Customers {...props} setAuth={setAuth} />
               ) : (
-                <Navigate to="/authentication/login" />
+                <Redirect to="/authentication/login" />
               )
             }
           />
           <Route
             exact
             path="/pokemon"
-            element={
+            render={(props) =>
               isAuthenticated ? (
-                <Pokemon setAuth={setAuth} />
+                <Pokemon {...props} setAuth={setAuth} />
               ) : (
-                <Navigate to="/authentication/login" />
+                <Redirect to="/authentication/login" />
               )
             }
           ></Route>
           <Route
             exact
             path="/authentication/login"
-            element={
+            render={(props) =>
               !isAuthenticated ? (
-                <Login setAuth={setAuth} />
+                <Login {...props} setAuth={setAuth} />
               ) : (
-                <Navigate to="/" />
+                <Redirect to="/" />
               )
             }
           ></Route>
           <Route
             exact
             path="/authentication/register"
-            element={
+            exact
+            render={(props) =>
               !isAuthenticated ? (
-                <Register setAuth={setAuth} />
+                <Register {...props} setAuth={setAuth} />
               ) : (
-                <Navigate to="/" />
+                <Redirect to="/" />
               )
             }
           ></Route>
-        </Routes>
+          <Route
+            exact
+            path="*"
+            exact
+            render={(props) => <div>404 not found</div>}
+          ></Route>
+        </Switch>
       </Router>
     </Fragment>
   );
