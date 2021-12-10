@@ -12,20 +12,18 @@ const Home = ({ setAuth }) => {
 
   const getProfile = async () => {
     try {
-      const response = await fetch("http://localhost:5000/authentication/userprofile", {
+      const response = await fetch("/authentication/userprofile", {
         method: "GET",
         headers: {
-          token: localStorage.token
+          jwt_token: localStorage.token,
         },
       });
 
       const parseRes = await response.json();
       console.log(parseRes);
-      if (parseRes) {
-        setName(parseRes.name);
-      }
+      setName(parseRes.user_name);
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
 

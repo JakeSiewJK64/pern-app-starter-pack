@@ -77,4 +77,15 @@ router.post("/verify", authorize, (req, res) => {
   }
 });
 
+router.get("/userprofile", authorize, async (req, res) => {
+  try {
+    const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+      req.user,
+    ]);
+    res.json(user.rows[0]);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 module.exports = router;
