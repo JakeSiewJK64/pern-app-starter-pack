@@ -20,7 +20,6 @@ const Home = ({ setAuth }) => {
       });
 
       const parseRes = await response.json();
-      console.log(parseRes);
       setName(parseRes.user_name);
     } catch (error) {
       console.log(error);
