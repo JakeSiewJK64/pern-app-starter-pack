@@ -9,6 +9,10 @@ tech stack:
 - Node.js
 
 
+Deployment:
+- Heroku
+
+
 <div style="display: flex;flex-flow: row-reverse wrap;">
 <a href="https://marketplace.visualstudio.com/items?itemName=sohibe.java-generate-setters-getters">
 <img src="https://raw.githubusercontent.com/coherencez/tech-logos/master/postgres.png" alt="drawing" width="50"/>
@@ -29,8 +33,14 @@ tech stack:
 <img src="https://raw.githubusercontent.com/coherencez/tech-logos/master/express.png" alt="drawing" width="50"/>
 </a>
 
+<a href="https://marketplace.visualstudio.com/items?itemName=sohibe.java-generate-setters-getters">
+<img src="https://raw.githubusercontent.com/gilbarbara/logos/f4c8e8b933aa80ce83b6d6d387e016bf4cb4e376/logos/heroku.svg" alt="drawing" width="50"/>
+</a>
+
 
 </div>
+
+
 
 
 ## How to start
