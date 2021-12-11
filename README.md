@@ -49,3 +49,14 @@ Deployment:
 ```
 npm start
 ```
+
+
+## To run only the backend (express), use the following command in ROOT DIRECTORY:
+```
+nodemon server.js
+```
+
+## To run only the frontend (react), use the following command in CLIENT DIRECTORY:
+```
+npm start
+```
