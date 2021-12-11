@@ -1,0 +1,13 @@
+.logo-config {
+    width: 5rem;
+    height: auto;
+}
+
+.logo {
+    text-decoration: none;
+    color: black;
+}
+
+.logo:hover {
+    color: black;
+}

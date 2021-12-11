@@ -1,6 +1,9 @@
 import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Flex } from "@react-css/flex";
+import { Card } from "@material-ui/core";
+import logo from "../../../img/logo.svg";
 
 const Login = ({ setAuth }) => {
   // setting default state
@@ -53,29 +56,38 @@ const Login = ({ setAuth }) => {
 
   return (
     <Fragment>
-      <h2 className="text-center my-5">Login</h2>
-      <div className="d-flex justify-content-center">
-        <form onSubmit={onSubmitForm}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter email"
-            className="form-control my-3"
-            value={email}
-            onChange={(e) => onChange(e)}
-          />
-          <input
-            name="password"
-            type="password"
-            value={password}
-            onChange={(e) => onChange(e)}
-            className="form-control my-3"
-            placeholder="Enter Password"
-          />
-          <button className="btn btn-warning btn-block">Login</button>
-        </form>
+      <div className="w-100">
+        <Card className="w-25 m-auto mt-5" elevation={12}>
+          <Flex column alignItemsCenter>
+            <img src={logo} style={{ width: "10rem" }} />
+            <h2 className="m-2 text-center">Login</h2>
+          </Flex>
+          <Flex className="p-2" justifyCenter alignItemsCenter>
+            <form onSubmit={onSubmitForm}>
+              <Flex column alignItemsCenter>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter email"
+                  className="form-control my-3"
+                  value={email}
+                  onChange={(e) => onChange(e)}
+                />
+                <input
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => onChange(e)}
+                  className="form-control my-3"
+                  placeholder="Enter Password"
+                />
+                <button className="btn btn-warning btn-block">Login</button>
+              </Flex>
+            </form>
+          </Flex>
+        </Card>
       </div>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center my-4">
         <Link to="/authentication/register">
           Don't have an account? Sign up!
         </Link>
