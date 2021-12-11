@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { Fragment, useState, useEffect } from "react";
 import { Route, Switch, Redirect, Link } from "react-router-dom";
+import Flex from "@react-css/flex";
 
 // components
 import Customers from "./components/customers/customers";
@@ -40,22 +41,34 @@ function App() {
     checkAuthenticated();
   }, []);
 
+  const HeaderIsAuthenticated = () => {
+    if (isAuthenticated) {
+      return (
+        <Flex rowReverse>
+          <div className="ml-auto d-flex justify-content-right">
+            {header_routes.map((x) => {
+              return (
+                <Link className="m-2 p-2 link-style" to={x.route} key={header_routes.indexOf(x)}>
+                  <Button variant="outlined">
+                    <span className="link-style">{x.title}</span>
+                  </Button>
+                </Link>
+              );
+            })}
+          </div>
+        </Flex>
+      );
+    } else {
+      return <div></div>;
+    }
+  };
+
   return isLoading ? (
     <div>loading</div>
   ) : (
     <Fragment>
       <header>
-        <div className="ml-auto d-flex justify-content-right">
-          {header_routes.map((x) => {
-            return (
-              <Link className="m-2 p-2 link-style" to={x.route}>
-                <Button variant="outlined">
-                  <span className="link-style">{x.title}</span>
-                </Button>
-              </Link>
-            );
-          })}
-        </div>
+        <HeaderIsAuthenticated />
         <Switch>
           <Route
             exact
