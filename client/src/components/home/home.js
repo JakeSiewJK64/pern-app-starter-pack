@@ -33,7 +33,7 @@ const Home = ({ setAuth }) => {
   return (
     <Fragment>
       <div className="App">
-        <header className="App-header">
+        <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
@@ -52,7 +52,7 @@ const Home = ({ setAuth }) => {
           >
             Logout
           </button>
-        </header>
+        </div>
       </div>
     </Fragment>
   );
