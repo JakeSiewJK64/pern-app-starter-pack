@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const pool = require("../../database");
+const pool = require("../../db");
 
 const validInfo = require("./validInfo");
 const authorize = require("./authorize");
@@ -52,7 +52,7 @@ router.post("/login", validInfo, async (req, res) => {
     ]);
 
     if (user.rows.length === 0) {
-      return res.status(401).json("Invalid Credentials!");
+      return res.status(401).json("Either your email or password is incorrect!");
     }
 
     const validPassword = await bcrypt.compare(

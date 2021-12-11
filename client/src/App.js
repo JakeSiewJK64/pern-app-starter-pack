@@ -11,6 +11,10 @@ import Register from "./components/security/register/register";
 import Login from "./components/security/login/login";
 import { Button } from "@material-ui/core";
 import { header_routes } from "../src/shared/constants";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -48,7 +52,11 @@ function App() {
           <div className="ml-auto d-flex justify-content-right">
             {header_routes.map((x) => {
               return (
-                <Link className="m-2 p-2 link-style" to={x.route} key={header_routes.indexOf(x)}>
+                <Link
+                  className="m-2 p-2 link-style"
+                  to={x.route}
+                  key={header_routes.indexOf(x)}
+                >
                   <Button variant="outlined">
                     <span className="link-style">{x.title}</span>
                   </Button>
@@ -68,6 +76,7 @@ function App() {
   ) : (
     <Fragment>
       <header>
+        <ToastContainer />
         <HeaderIsAuthenticated />
         <Switch>
           <Route
