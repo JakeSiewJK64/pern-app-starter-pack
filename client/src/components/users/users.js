@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "@material-ui/core";
-import CustomTable from "../../shared/shared-components/table/table";
+import UserTable from "./table/userTable";
 import LoadingSpinner from "../../shared/shared-components/loadingSpinner/loadingSpinner";
 
 const Users = () => {
@@ -51,7 +51,7 @@ const Users = () => {
       <div>
         <h2>Users</h2>
         <Card elevation={12} className="w-75 m-auto">
-          <CustomTable columns={columns} data={users} />
+          <UserTable columns={columns} data={users} />
         </Card>
       </div>
     );

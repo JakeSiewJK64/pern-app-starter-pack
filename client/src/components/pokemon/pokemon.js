@@ -1,10 +1,33 @@
 import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../../shared/shared-components/loadingSpinner/loadingSpinner";
 import "./pokemon.css";
+import PokemonTable from "./table/pokemonTable";
+import { Card } from "@material-ui/core";
+import CustomTable from "../users/table/userTable";
 
 const Pokemon = ({ setAuth }) => {
   const [pokemon, setPokemons] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [displayHeaders, setDisplayHeaders] = useState([
+    {
+      id: "col1",
+      Header: "ID",
+      accessor: "id",
+      width: 20,
+    },
+    {
+      id: "col2",
+      Header: "Pokemon Name",
+      accessor: "name",
+      width: 40,
+    },
+    {
+      id: "col3",
+      Header: "Trainer ID",
+      accessor: "trainer",
+      width: 40,
+    },
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,15 +50,11 @@ const Pokemon = ({ setAuth }) => {
     return <LoadingSpinner />;
   } else {
     return (
-      <div className="pokemon">
-        <h2>Pokemon page</h2>
-        <ul>
-          {pokemon.map((pokemon) => (
-            <li key={pokemon.id}>
-              {pokemon.name}: {pokemon.trainer}
-            </li>
-          ))}
-        </ul>
+      <div>
+        <h2>Users</h2>
+        <Card elevation={12} className="w-75 m-auto">
+          <PokemonTable columns={displayHeaders} data={pokemon} />
+        </Card>
       </div>
     );
   }

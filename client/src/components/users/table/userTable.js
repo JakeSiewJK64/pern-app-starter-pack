@@ -8,13 +8,10 @@ import {
   TableRow,
 } from "@material-ui/core";
 import MaUTable from "@material-ui/core/Table";
-import {
-  usePagination,
-  useTable,
-} from "react-table";
+import { usePagination, useTable } from "react-table";
 import TablePagination from "@material-ui/core/TablePagination/TablePagination";
 
-export default function CustomTable({ columns, data }) {
+export default function UserTable({ columns, data }) {
   const [paginatorPage, setPaginatorPage] = useState(0);
   const [rowNumberSelection] = useState([
     5,
@@ -90,7 +87,6 @@ export default function CustomTable({ columns, data }) {
           <TableRow>
             <TablePagination
               className="paginator"
-              component="div"
               count={data.length}
               page={paginatorPage}
               onPageChange={handleChangePage}
