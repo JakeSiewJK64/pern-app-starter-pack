@@ -10,9 +10,11 @@ import {
 import MaUTable from "@material-ui/core/Table";
 import { usePagination, useTable } from "react-table";
 import TablePagination from "@material-ui/core/TablePagination/TablePagination";
+import UserDetailsDialog from "../_dialog/userDetailsDialog";
 
 export default function UserTable({ columns, data }) {
   const [paginatorPage, setPaginatorPage] = useState(0);
+  const [openDialog, setOpenDialog] = useState(false);
   const [rowNumberSelection] = useState([
     5,
     10,
@@ -53,50 +55,58 @@ export default function UserTable({ columns, data }) {
     console.log("page suze: ", pageSize);
   };
 
+
+  const openDialogFunction = () => {
+    setOpenDialog(true);
+  };
+
   return (
-    <TableContainer>
-      <MaUTable {...getTableProps()}>
-        <TableHead>
-          {headerGroups.map((headerGroup) => (
-            <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <TableCell {...column.getHeaderProps()}>
-                  <b>{column.render("Header")}</b>
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableHead>
-        <TableBody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row);
-            return (
-              <TableRow {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <TableCell {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </TableCell>
-                  );
-                })}
+    <div>
+      <UserDetailsDialog isOpen={openDialog} setOpen={setOpenDialog}/>
+      <TableContainer>
+        <MaUTable {...getTableProps()}>
+          <TableHead>
+            {headerGroups.map((headerGroup) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <TableCell {...column.getHeaderProps()}>
+                    <b>{column.render("Header")}</b>
+                  </TableCell>
+                ))}
               </TableRow>
-            );
-          })}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              className="paginator"
-              count={data.length}
-              page={paginatorPage}
-              onPageChange={handleChangePage}
-              rowsPerPage={pageSize != undefined ? pageSize : 5}
-              rowsPerPageOptions={rowNumberSelection}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </TableRow>
-        </TableFooter>
-      </MaUTable>
-    </TableContainer>
+            ))}
+          </TableHead>
+          <TableBody {...getTableBodyProps()}>
+            {page.map((row, i) => {
+              prepareRow(row);
+              return (
+                <TableRow {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <TableCell {...cell.getCellProps()} onClick={openDialogFunction} >
+                        {cell.render("Cell")}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                className="paginator"
+                count={data.length}
+                page={paginatorPage}
+                onPageChange={handleChangePage}
+                rowsPerPage={pageSize != undefined ? pageSize : 5}
+                rowsPerPageOptions={rowNumberSelection}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </TableRow>
+          </TableFooter>
+        </MaUTable>
+      </TableContainer>
+    </div>
   );
 }
