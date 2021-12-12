@@ -10,6 +10,7 @@
     "@material/button": "^13.0.0",
     "@material/ripple": "^13.0.0",
     "@mui/icons-material": "^5.2.1",
+    "@mui/lab": "^5.0.0-alpha.59",
     "@mui/material": "^5.2.3",
     "@react-css/flex": "^1.6.0",
     "@testing-library/jest-dom": "^5.16.1",

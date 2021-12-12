@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "@material-ui/core";
-import UserTable from "./table/userTable";
+import UserTable from "./_table/userTable";
 import LoadingSpinner from "../../shared/shared-components/loadingSpinner/loadingSpinner";
 
 const Users = () => {

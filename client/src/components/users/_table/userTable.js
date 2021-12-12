@@ -55,14 +55,13 @@ export default function UserTable({ columns, data }) {
     console.log("page suze: ", pageSize);
   };
 
-
   const openDialogFunction = () => {
     setOpenDialog(true);
   };
 
   return (
     <div>
-      <UserDetailsDialog isOpen={openDialog} setOpen={setOpenDialog}/>
+      <UserDetailsDialog isOpen={openDialog} setOpen={setOpenDialog} />
       <TableContainer>
         <MaUTable {...getTableProps()}>
           <TableHead>
@@ -83,7 +82,10 @@ export default function UserTable({ columns, data }) {
                 <TableRow {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     return (
-                      <TableCell {...cell.getCellProps()} onClick={openDialogFunction} >
+                      <TableCell
+                        {...cell.getCellProps()}
+                        onClick={openDialogFunction}
+                      >
                         {cell.render("Cell")}
                       </TableCell>
                     );
@@ -102,7 +104,7 @@ export default function UserTable({ columns, data }) {
                 rowsPerPage={pageSize != undefined ? pageSize : 5}
                 rowsPerPageOptions={rowNumberSelection}
                 onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+              />
             </TableRow>
           </TableFooter>
         </MaUTable>

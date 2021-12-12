@@ -3,7 +3,6 @@ import LoadingSpinner from "../../shared/shared-components/loadingSpinner/loadin
 import "./pokemon.css";
 import PokemonTable from "./table/pokemonTable";
 import { Card } from "@material-ui/core";
-import CustomTable from "../users/table/userTable";
 
 const Pokemon = ({ setAuth }) => {
   const [pokemon, setPokemons] = useState([]);
