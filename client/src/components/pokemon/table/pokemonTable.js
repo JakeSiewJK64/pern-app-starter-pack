@@ -10,8 +10,7 @@ import {
 import MaUTable from "@material-ui/core/Table";
 import { usePagination, useTable } from "react-table";
 import TablePagination from "@material-ui/core/TablePagination/TablePagination";
-import './pokemonTable.css';
-
+import "./pokemonTable.css";
 
 export default function PokemonTable({ columns, data }) {
   const [paginatorPage, setPaginatorPage] = useState(0);
@@ -77,7 +76,7 @@ export default function PokemonTable({ columns, data }) {
                 {row.cells.map((cell) => {
                   return (
                     <TableCell {...cell.getCellProps()} className="pokemonRow">
-                      <p>{cell.render("Cell")}</p>
+                      {cell.render("Cell")}
                     </TableCell>
                   );
                 })}
