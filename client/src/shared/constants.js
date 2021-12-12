@@ -7,4 +7,8 @@ export const header_routes = [
     title: "Customers",
     route: "/customers",
   },
+  {
+    title: "Users",
+    route: "/users",
+  },
 ];

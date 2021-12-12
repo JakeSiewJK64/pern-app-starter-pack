@@ -11,7 +11,7 @@ export const AppHeader = () => {
       <Flex justifySpaceBetween>
         <Link to="/" className="logo">
           <Flex row justifyCenter>
-            <img src={logo} className="logo-config" />
+            <img src={logo} className="logo-config" alt="logo"/>
             <h3 className="my-3">React</h3>
           </Flex>
         </Link>

@@ -59,7 +59,7 @@ const Login = ({ setAuth }) => {
       <div className="w-100">
         <Card className="w-25 m-auto mt-5" elevation={12}>
           <Flex column alignItemsCenter>
-            <img src={logo} style={{ width: "10rem" }} />
+            <img src={logo} style={{ width: "10rem" }} alt="logo"/>
             <h2 className="m-2 text-center">Login</h2>
           </Flex>
           <Flex className="p-2" justifyCenter alignItemsCenter>

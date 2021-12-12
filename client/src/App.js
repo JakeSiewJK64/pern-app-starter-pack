@@ -7,6 +7,7 @@ import Customers from "./components/customers/customers";
 import Pokemon from "./components/pokemon/pokemon";
 import Home from "./components/home/home";
 import Register from "./components/security/register/register";
+import Users from "./components/users/users";
 import Login from "./components/security/login/login";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -67,6 +68,17 @@ function App() {
             render={(props) =>
               isAuthenticated ? (
                 <Customers {...props} setAuth={setAuth} />
+              ) : (
+                <Redirect to="/authentication/login" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/users"
+            render={(props) =>
+              isAuthenticated ? (
+                <Users {...props} setAuth={setAuth} />
               ) : (
                 <Redirect to="/authentication/login" />
               )
