@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Card } from "@material-ui/core";
 import CustomTable from "../../shared/shared-components/table/table";
+import LoadingSpinner from "../../shared/shared-components/loadingSpinner/loadingSpinner";
 
 const Users = () => {
+  const [isLoading, setIsLoading] = useState(true)
   const [columns, setColumns] = useState([
     {
       id: "col1",
@@ -90,11 +92,12 @@ const Users = () => {
     },
   ]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+  }, []);
 
   const RenderTable = () => {
     if (!users.length) {
-      return <p>loading...</p>;
+      return <LoadingSpinner />;
     } else {
       return <CustomTable columns={columns} data={users} />;
     }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import LoadingSpinner from "../../shared/shared-components/loadingSpinner/loadingSpinner";
 import "./customers.css";
 
 export default function Customers() {
@@ -20,7 +21,7 @@ export default function Customers() {
   }, []);
 
   if (!data.length) {
-    return <p>loading...</p>;
+    return <LoadingSpinner />;
   } else {
     return (
       <div className="customers">
