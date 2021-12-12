@@ -5,6 +5,7 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 
 const indexRouter = require("./routes/index");
+const userRouter = require("./routes/users/usersController");
 const authRouter = require("./routes/authentication/jwtAuth");
 const logger = require("./utils/logger");
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.static("client/build"));
 
 app.use("/", indexRouter);
+app.use("/users", userRouter);
 app.use("/auth", authRouter);
 app.use("/api", require("./routes/index"));
 

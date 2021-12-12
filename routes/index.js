@@ -25,7 +25,7 @@ router.get("/api/customers", authorization, (req, res) => {
   res.json(customers);
 });
 
-router.get("/api/pokemon", cors(), async (req, res) => {
+router.get("/api/pokemon", authorization, async (req, res) => {
   try {
     const pokemon = await pool.query("SELECT * FROM A_POKEMON");
     res.json(pokemon.rows);
