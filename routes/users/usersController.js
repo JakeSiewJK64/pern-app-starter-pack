@@ -4,7 +4,6 @@ const authorization = require("../authentication/authorize");
 const pool = require("../../db");
 const cors = require("cors");
 const logger = require("../../utils/logger");
-const { user } = require("pg/lib/defaults");
 
 router.get("/getAllUsers", authorization, async (req, res) => {
   try {
