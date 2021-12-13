@@ -54,7 +54,6 @@ export default function UserTable({ columns, data }) {
 
   const handleChangeRowsPerPage = (event) => {
     setPageSize(Number(event.target.value));
-    console.log("page suze: ", pageSize);
   };
 
   const openDialogFunction = (userchoice) => {
@@ -62,7 +61,11 @@ export default function UserTable({ columns, data }) {
     setSelectedUser(
       new User(
         userchoice.row.original.user_name,
-        userchoice.row.original.user_email
+        userchoice.row.original.user_email,
+        userchoice.row.original.first_name,
+        userchoice.row.original.last_name,
+        "",
+        userchoice.row.original.role_name
       )
     );
   };

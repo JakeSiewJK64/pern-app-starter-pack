@@ -9,7 +9,7 @@ const { user } = require("pg/lib/defaults");
 router.get("/getAllUsers", authorization, async (req, res) => {
   try {
     const users = await pool.query(
-      "SELECT u.user_name, u.user_email,u.first_name,u.last_name, r.role_name FROM users u  LEFT JOIN roles r ON u.role = r.role_id;"
+      "SELECT u.user_id, u.user_name, u.user_email,u.first_name,u.last_name, r.role_name FROM users u  LEFT JOIN roles r ON u.role = r.role_id;"
     );
     res.json(users.rows);
   } catch (error) {
@@ -19,7 +19,6 @@ router.get("/getAllUsers", authorization, async (req, res) => {
 });
 
 router.post("/upsertUser", cors(), async (req, res) => {
-  console.log(req.body);
   const {
     user_email,
     user_name,

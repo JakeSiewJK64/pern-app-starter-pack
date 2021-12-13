@@ -9,10 +9,6 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import Flex from "@react-css/flex";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
-import User from "../../../shared/architecture-api";
 
 export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
   const [value, setValue] = useState(null);
@@ -54,8 +50,10 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
             </Flex>
             <Flex column gap={10}>
               <TextField
+                value={userData.user_firstname}
                 label="FirstName"
                 aria-label="firstname"
+                type="text"
                 fullWidth
                 variant="outlined"
                 id="firstname"
@@ -63,55 +61,29 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
                 autoFocus
               />
               <TextField
+                value={userData.user_lastname}
                 label="LastName"
                 aria-label="lastname"
                 fullWidth
+                type="text"
                 variant="outlined"
                 id="lastname"
                 margin="dense"
                 autoFocus
               />
             </Flex>
-            <Flex gap={10}>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="email"
-                label="Phone Number"
-                type="email"
-                fullWidth
-                variant="outlined"
-              />
-              <TextField
-                autoFocus
-                margin="dense"
-                id="email"
-                label="Credit Token"
-                type="email"
-                fullWidth
-                variant="outlined"
-              />
-              <TextField
-                label="FirstName"
-                aria-label="firstname"
-                fullWidth
-                variant="outlined"
-                id="firstname"
-                margin="dense"
-                autoFocus
-              />
-            </Flex>
             <Flex>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="Basic example"
-                  value={value}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+              <TextField
+                value={userData.user_role}
+                label="Role"
+                aria-label="role"
+                fullWidth
+                variant="outlined"
+                id="role"
+                margin="dense"
+                autoFocus
+                type="text"
+              />
             </Flex>
           </DialogContent>
           <DialogActions>
