@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { Card } from "@material-ui/core";
+import { Card, Button } from "@material-ui/core";
 import UserTable from "./_table/userTable";
+import AddIcon from "@mui/icons-material/Add";
 import LoadingSpinner from "../../shared/shared-components/loadingSpinner/loadingSpinner";
+import { Stack } from "@mui/material";
+import AddUserDialog from "./_dialog/addUserDialog";
 
 const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState([]);
+  const [isAddNewUser, setIsAddNewUser] = useState(false);
   const [columns, setColumns] = useState([
     {
       id: "col1",
@@ -27,20 +31,21 @@ const Users = () => {
     },
   ]);
 
+  const fetchUsers = async () => {
+    await fetch("/users/getAllUsers", {
+      method: "GET",
+      headers: {
+        jwt_token: localStorage.token,
+      },
+    })
+      .then((x) => x.json())
+      .then((res) => {
+        setUsers(res);
+        setIsLoading(false);
+      });
+  };
+
   useEffect(() => {
-    const fetchUsers = async () => {
-      await fetch("/users/getAllUsers", {
-        method: "GET",
-        headers: {
-          jwt_token: localStorage.token,
-        },
-      })
-        .then((x) => x.json())
-        .then((res) => {
-          setUsers(res);
-          setIsLoading(false);
-        });
-    };
     fetchUsers();
   }, []);
 
@@ -48,10 +53,32 @@ const Users = () => {
     return <LoadingSpinner />;
   } else {
     return (
-      <div>
-        <h2>Users</h2>
+      <div className="w-75 m-auto">
+        <AddUserDialog
+          isOpen={isAddNewUser}
+          setOpen={setIsAddNewUser}
+          userData={null}
+        />
         <Card elevation={12} className="w-75 m-auto">
-          <UserTable columns={columns} data={users} />
+          <Stack direction="row" className="m-4">
+            <h2>Users</h2>
+            <Stack className="ms-auto">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setIsAddNewUser(true)}
+                startIcon={<AddIcon />}
+                className="ml-auto"
+              >
+                Add User
+              </Button>
+            </Stack>
+          </Stack>
+          <UserTable
+            columns={columns}
+            data={users}
+            isAddNewUser={isAddNewUser}
+          />
         </Card>
       </div>
     );

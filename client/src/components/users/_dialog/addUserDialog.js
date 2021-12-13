@@ -14,8 +14,9 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import User from "../../../shared/architecture-api";
 
-export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
+export default function AddUserDialog({ isOpen, setOpen }) {
   const [value, setValue] = useState(null);
+  const [newUser, setNewUser] = useState(new User("", "", "", "", "", ""));
   const handleClose = () => {
     setOpen(false);
   };
@@ -24,7 +25,7 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
     return (
       <div>
         <Dialog open={isOpen}>
-          <DialogTitle>Edit User Details</DialogTitle>
+          <DialogTitle>Add User</DialogTitle>
           <DialogContent>
             <DialogContentText>
               To subscribe to this website, please enter your email address
@@ -32,9 +33,9 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
             </DialogContentText>
             <Flex gap={10}>
               <TextField
-                value={userData.user_name}
                 autoFocus
                 margin="dense"
+                value={newUser.user_name}
                 id="name"
                 label="Userame"
                 type="text"
@@ -42,7 +43,6 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
                 variant="outlined"
               />
               <TextField
-                value={userData.user_email}
                 autoFocus
                 margin="dense"
                 id="email"

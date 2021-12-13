@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import User from "../../../shared/architecture-api";
 import {
   TableBody,
   TableCell,
@@ -15,6 +16,7 @@ import UserDetailsDialog from "../_dialog/userDetailsDialog";
 export default function UserTable({ columns, data }) {
   const [paginatorPage, setPaginatorPage] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
+  const [user, setSelectedUser] = useState(null);
   const [rowNumberSelection] = useState([
     5,
     10,
@@ -55,13 +57,23 @@ export default function UserTable({ columns, data }) {
     console.log("page suze: ", pageSize);
   };
 
-  const openDialogFunction = () => {
+  const openDialogFunction = (userchoice) => {
     setOpenDialog(true);
+    setSelectedUser(
+      new User(
+        userchoice.row.original.user_name,
+        userchoice.row.original.user_email
+      )
+    );
   };
 
   return (
     <div>
-      <UserDetailsDialog isOpen={openDialog} setOpen={setOpenDialog} />
+      <UserDetailsDialog
+        isOpen={openDialog}
+        setOpen={setOpenDialog}
+        userData={user}
+      />
       <TableContainer>
         <MaUTable {...getTableProps()}>
           <TableHead>
@@ -84,7 +96,9 @@ export default function UserTable({ columns, data }) {
                     return (
                       <TableCell
                         {...cell.getCellProps()}
-                        onClick={openDialogFunction}
+                        onClick={() => {
+                          openDialogFunction(cell);
+                        }}
                       >
                         {cell.render("Cell")}
                       </TableCell>
