@@ -55,7 +55,6 @@ export const AppHeader = ({ props, username }) => {
               </Link>
             );
           })}
-
           <Flex>
             <Tooltip title="Account settings">
               <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
