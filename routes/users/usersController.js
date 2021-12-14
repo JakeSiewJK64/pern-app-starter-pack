@@ -4,6 +4,7 @@ const authorization = require("../authentication/authorize");
 const pool = require("../../db");
 const cors = require("cors");
 const logger = require("../../utils/logger");
+const bcrypt = require("bcrypt");
 
 router.get("/getAllUsers", authorization, async (req, res) => {
   try {
@@ -18,8 +19,6 @@ router.get("/getAllUsers", authorization, async (req, res) => {
 });
 
 router.post("/upsertUser", authorization, async (req, res) => {
-  console.log(req.body);
-
   const {
     user_id,
     user_email,
@@ -30,9 +29,29 @@ router.post("/upsertUser", authorization, async (req, res) => {
     user_role,
   } = req.body;
 
+  if (user_id === null) {
+    console.log("this ran");
+    const salt = await bcrypt.genSalt(10);
+    const bcryptPassword = await bcrypt.hash(user_password, salt);
+    const users = await pool.query(
+      "INSERT INTO users(user_name, user_email, user_password, role, first_name, last_name) VALUES ($1,$2,$3,(SELECT role_id FROM roles WHERE role_name = $4),$5,$6)",
+      [
+        user_name,
+        user_email,
+        bcryptPassword,
+        user_role,
+        user_firstname,
+        user_lastname,
+      ]
+    );
+    return res.status(200).send({
+      msg: users.rows[0],
+    });
+  }
+
   const userExists = await pool.query(
     "SELECT * FROM users WHERE user_id = $1",
-    [user_id]
+    [req.body.user_id]
   );
 
   try {
@@ -56,28 +75,13 @@ router.post("/upsertUser", authorization, async (req, res) => {
         ]
       );
       return res.status(200).send({
-        msg: users.rows[0]
-      });
-    } else {
-      const users = await pool.query(
-        "INSERT INTO users(user_name, user_email, user_password, (SELECT role_id FROM roles WHERE role_id = $4), first_name, last_name) VALUES ($1,$2,$3,$5,$6)",
-        [
-          user_name,
-          user_email,
-          user_password,
-          user_role,
-          user_firstname,
-          user_lastname,
-        ]
-      );
-      return res.status(200).send({
-        msg: users.rows[0]
+        msg: users.rows[0],
       });
     }
   } catch (error) {
-    console.log(error);
     return res.status(500).send({
-      msg: "Something happened :("
+      msg: "Something happened :(",
+      errorMsg: error,
     });
   }
 });

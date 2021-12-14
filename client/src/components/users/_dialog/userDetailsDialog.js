@@ -44,7 +44,6 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
   const GetFormikConfig = () => {
     formik = useFormik({
       initialValues: {
-        user_id: 1,
         user_name: userData.user_name,
         user_email: userData.user_email,
         user_role: userData.user_role,
@@ -61,8 +60,10 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
   const SetAddNewUser = () => {
     formik = useFormik({
       initialValues: {
+        user_id: null,
         user_name: "",
         user_email: "",
+        user_password: "",
         user_role: "",
         user_firstname: "",
         user_lastname: "",
@@ -165,6 +166,22 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
                   </Select>
                 </FormControl>
               </Flex>
+              {userData === null ? (
+                <Flex gap={10} className="mt-3">
+                  <TextField
+                    fullWidth
+                    name="user_password"
+                    label="Password"
+                    value={formik.values.user_password}
+                    onChange={formik.handleChange}
+                    type="password"
+                  >
+                    Password
+                  </TextField>
+                </Flex>
+              ) : (
+                <div></div>
+              )}
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Close</Button>
