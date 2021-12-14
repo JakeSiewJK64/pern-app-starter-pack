@@ -18,7 +18,6 @@ import { useState, useEffect } from "react";
 
 export const AppHeader = ({ props, username, userrole }) => {
   const [achorEl, setAnchorEl] = useState(null);
-  const [routes, setRoutes] = useState([]);
   const open = Boolean(achorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -73,7 +72,7 @@ export const AppHeader = ({ props, username, userrole }) => {
                 </Link>
               );
             } else {
-              return <div key={null}></div>;
+              return <div key={"null"}></div>;
             }
           })}
 
