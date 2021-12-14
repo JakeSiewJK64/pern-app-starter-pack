@@ -5,7 +5,6 @@ import "./customers.css";
 export default function Customers({setAuth}) {
   const [data, setData] = useState([]);
   useEffect(() => {
-    console.log(setAuth);
     const fetchData = async () => {
       await fetch("/api/customers", {
         method: "GET",
