@@ -17,15 +17,34 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 
 export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
+  const roleMenu = ["administrator", "contributor", "user"];
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const submitUser = async (user) => {
+    const res = await fetch("/users/upsertUser", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        jwt_token: localStorage.token,
+      },
+      body: JSON.stringify(user),
+    });
+
+    const p = await res.json();
+    if (res.status === 500) {
+      toast.error(p.msg);
+    } else {
+      toast.success("Success!");
+    }
   };
 
   var formik;
   const GetFormikConfig = () => {
     formik = useFormik({
       initialValues: {
-        email: "jakewashere@gmail.com",
+        user_id: 1,
         user_name: userData.user_name,
         user_email: userData.user_email,
         user_role: userData.user_role,
@@ -33,19 +52,37 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
         user_lastname: userData.user_lastname,
       },
       onSubmit: (val) => {
-        toast.success("Successfully updated user!");
-        console.log(val);
+        submitUser(val);
+      },
+    });
+    formik.values.user_id = userData.user_id;
+  };
+
+  const SetAddNewUser = () => {
+    formik = useFormik({
+      initialValues: {
+        user_name: "",
+        user_email: "",
+        user_role: "",
+        user_firstname: "",
+        user_lastname: "",
+      },
+      onSubmit: (val) => {
+        submitUser(val);
       },
     });
   };
 
   if (isOpen) {
-    GetFormikConfig();
+    userData ? GetFormikConfig() : SetAddNewUser();
     return (
       <div>
         <Dialog open={isOpen}>
           <form onSubmit={formik.handleSubmit}>
-            <DialogTitle>Edit User Details</DialogTitle>
+            <DialogTitle>
+              {userData !== null ? "Edit" : "Add"} User Details{" "}
+              {userData !== null ? `# ${userData.user_id}` : ""}
+            </DialogTitle>
             <DialogContent>
               <DialogContentText>
                 To subscribe to this website, please enter your email address
@@ -107,9 +144,9 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
                   id="lastname"
                 />
               </Flex>
-              <Flex>
+              <Flex gap={10} className="mt-2">
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                  <InputLabel id="demo-simple-select-label">Role</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -118,9 +155,13 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
                     label="Role"
                     onChange={formik.handleChange}
                   >
-                    <MenuItem value={"administrator"}>administrator</MenuItem>
-                    <MenuItem value={"user"}>user</MenuItem>
-                    <MenuItem value={"contributor"}>contributor</MenuItem>
+                    {roleMenu.map((role) => {
+                      return (
+                        <MenuItem value={role} key={role}>
+                          {role}
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </FormControl>
               </Flex>

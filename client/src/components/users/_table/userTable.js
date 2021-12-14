@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import User from "../../../shared/architecture-api";
+import '../users.css';
 import {
   TableBody,
   TableCell,
@@ -18,6 +19,7 @@ export default function UserTable({ columns, data }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [user, setSelectedUser] = useState(null);
   const [rowNumberSelection] = useState([
+    2,
     5,
     10,
     15,
@@ -60,6 +62,7 @@ export default function UserTable({ columns, data }) {
     setOpenDialog(true);
     setSelectedUser(
       new User(
+        userchoice.row.original.user_id,
         userchoice.row.original.user_name,
         userchoice.row.original.user_email,
         userchoice.row.original.first_name,
@@ -79,7 +82,7 @@ export default function UserTable({ columns, data }) {
       />
       <TableContainer>
         <MaUTable {...getTableProps()}>
-          <TableHead>
+          <TableHead className="user-table-head">
             {headerGroups.map((headerGroup) => (
               <TableRow {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (

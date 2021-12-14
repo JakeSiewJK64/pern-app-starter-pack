@@ -4,12 +4,13 @@ import UserTable from "./_table/userTable";
 import AddIcon from "@mui/icons-material/Add";
 import LoadingSpinner from "../../shared/shared-components/loadingSpinner/loadingSpinner";
 import { Stack } from "@mui/material";
-import AddUserDialog from "./_dialog/addUserDialog";
+import UserDetailsDialog from "./_dialog/userDetailsDialog";
 
 const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState([]);
-  const [isAddNewUser, setIsAddNewUser] = useState(false);
+  const [isAddNewUser] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const [columns] = useState([
     {
       id: "col1",
@@ -45,6 +46,10 @@ const Users = () => {
       });
   };
 
+  const openDialogFunction = (userchoice) => {
+    setOpenDialog(true);
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -54,9 +59,9 @@ const Users = () => {
   } else {
     return (
       <div className="w-75 m-auto">
-        <AddUserDialog
-          isOpen={isAddNewUser}
-          setOpen={setIsAddNewUser}
+        <UserDetailsDialog
+          isOpen={openDialog}
+          setOpen={setOpenDialog}
           userData={null}
         />
         <Card elevation={12} className="w-75 m-auto">
@@ -64,9 +69,9 @@ const Users = () => {
             <h2>Users</h2>
             <Stack className="ms-auto">
               <Button
+                onClick={openDialogFunction}
                 variant="contained"
                 color="primary"
-                onClick={() => setIsAddNewUser(true)}
                 startIcon={<AddIcon />}
                 className="ml-auto"
               >
