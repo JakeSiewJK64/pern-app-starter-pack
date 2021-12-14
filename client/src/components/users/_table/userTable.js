@@ -37,7 +37,7 @@ export default function UserTable({ columns, data }) {
 
     // The rest of these things are super handy, too ;)
     gotoPage,
-    state: { pageIndex, pageSize },
+    state: { pageSize },
   } = useTable(
     {
       columns,
@@ -118,7 +118,7 @@ export default function UserTable({ columns, data }) {
                 count={data.length}
                 page={paginatorPage}
                 onPageChange={handleChangePage}
-                rowsPerPage={pageSize != undefined ? pageSize : 5}
+                rowsPerPage={pageSize !== undefined ? pageSize : 5}
                 rowsPerPageOptions={rowNumberSelection}
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />

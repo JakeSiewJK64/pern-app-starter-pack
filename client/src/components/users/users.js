@@ -10,7 +10,7 @@ const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [isAddNewUser, setIsAddNewUser] = useState(false);
-  const [columns, setColumns] = useState([
+  const [columns] = useState([
     {
       id: "col1",
       Header: "ID",

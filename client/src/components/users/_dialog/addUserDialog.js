@@ -16,7 +16,7 @@ import User from "../../../shared/architecture-api";
 
 export default function AddUserDialog({ isOpen, setOpen }) {
   const [value, setValue] = useState(null);
-  const [newUser, setNewUser] = useState(new User("", "", "", "", "", ""));
+  const [newUser] = useState(new User("", "", "", "", "", ""));
   const handleClose = () => {
     setOpen(false);
   };

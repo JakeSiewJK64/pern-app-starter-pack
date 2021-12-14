@@ -7,7 +7,7 @@ import { Card } from "@material-ui/core";
 const Pokemon = ({ setAuth }) => {
   const [pokemon, setPokemons] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [displayHeaders, setDisplayHeaders] = useState([
+  const [displayHeaders] = useState([
     {
       id: "col1",
       Header: "ID",

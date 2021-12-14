@@ -14,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { AppHeader } from "./shared/shared-components/header/header";
+import LoadingSpinner from "./shared/shared-components/loadingSpinner/loadingSpinner";
 
 toast.configure();
 
@@ -55,7 +56,9 @@ function App() {
   };
 
   return isLoading ? (
-    <div>loading</div>
+    <div style={{ "marginTop": "25vh" }}>
+      <LoadingSpinner />
+    </div>
   ) : (
     <Fragment>
       <header>
