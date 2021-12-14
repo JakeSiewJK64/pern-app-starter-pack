@@ -21,6 +21,7 @@ toast.configure();
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [name, setName] = useState("");
 
   const checkAuthenticated = async () => {
     try {
@@ -39,31 +40,40 @@ function App() {
     } catch (error) {}
   };
 
+  const getProfile = async () => {
+    try {
+      const response = await fetch("/auth/userprofile", {
+        method: "GET",
+        headers: {
+          jwt_token: localStorage.token,
+        },
+      });
+
+      const parseRes = await response.json();
+      setName(parseRes.user_name);
+    } catch (error) {
+      console.log("error: ", error.message);
+    }
+  };
+
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
 
   useEffect(() => {
     checkAuthenticated();
+    getProfile();
   }, []);
 
-  const HeaderIsAuthenticated = () => {
-    if (isAuthenticated) {
-      return <AppHeader />;
-    } else {
-      return <div></div>;
-    }
-  };
-
   return isLoading ? (
-    <div style={{ "marginTop": "25vh" }}>
+    <div style={{ marginTop: "25vh" }}>
       <LoadingSpinner />
     </div>
   ) : (
     <Fragment>
       <header>
         <ToastContainer />
-        <HeaderIsAuthenticated />
+        {isAuthenticated ? <AppHeader props={setAuth} username={name}/> : <div></div>}
         <Switch>
           <Route
             exact
@@ -126,7 +136,7 @@ function App() {
             path="/"
             render={(props) =>
               isAuthenticated ? (
-                <Home {...props} setAuth={setAuth} />
+                <Home {...props} setAuth={setAuth} username={name}/>
               ) : (
                 <Redirect to="/authentication/login" />
               )

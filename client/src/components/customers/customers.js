@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../../shared/shared-components/loadingSpinner/loadingSpinner";
 import "./customers.css";
 
-export default function Customers() {
+export default function Customers({setAuth}) {
   const [data, setData] = useState([]);
   useEffect(() => {
+    console.log(setAuth);
     const fetchData = async () => {
       await fetch("/api/customers", {
         method: "GET",
