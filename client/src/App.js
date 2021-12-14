@@ -22,6 +22,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [name, setName] = useState("");
+  const [role, setRole] = useState("");
 
   const checkAuthenticated = async () => {
     try {
@@ -51,6 +52,7 @@ function App() {
 
       const parseRes = await response.json();
       setName(parseRes.user_name);
+      setRole(parseRes.role_name);
     } catch (error) {
       console.log("error: ", error.message);
     }
@@ -73,7 +75,7 @@ function App() {
     <Fragment>
       <header>
         <ToastContainer />
-        {isAuthenticated ? <AppHeader props={setAuth} username={name}/> : <div></div>}
+        {isAuthenticated ? <AppHeader props={setAuth} username={name} userrole={role}/> : <div></div>}
         <Switch>
           <Route
             exact

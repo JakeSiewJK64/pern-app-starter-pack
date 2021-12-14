@@ -11,3 +11,12 @@
 .logo:hover {
     color: black;
 }
+
+.role-badge {
+    color: #fff;
+    background-color: #3498db;
+    border-radius: 10%;
+    width: 10rem;
+    text-align: center;
+    padding: 5px;
+}

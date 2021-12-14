@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import { header_routes } from "../../constants";
+import { header_routes, admin_header_routes } from "../../constants";
 import Flex from "@react-css/flex";
 import { Link } from "react-router-dom";
 import logo from "../../../img/logo.svg";
@@ -16,7 +16,7 @@ import Logout from "@mui/icons-material/Logout";
 import "./header.css";
 import { useState } from "react";
 
-export const AppHeader = ({ props, username }) => {
+export const AppHeader = ({ props, username, userrole }) => {
   const [achorEl, setAnchorEl] = useState(null);
   const open = Boolean(achorEl);
   const handleClick = (event) => {
@@ -55,6 +55,23 @@ export const AppHeader = ({ props, username }) => {
               </Link>
             );
           })}
+          {userrole === "administrator" ? (
+            admin_header_routes.map((x) => {
+              return (
+                <Link
+                  className="m-2 p-2 link-style"
+                  to={x.route}
+                  key={header_routes.indexOf(x)}
+                >
+                  <Button variant="outlined">
+                    <span className="link-style">{x.title}</span>
+                  </Button>
+                </Link>
+              );
+            })
+          ) : (
+            <div></div>
+          )}
           <Flex>
             <Tooltip title="Account settings">
               <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
@@ -102,6 +119,7 @@ export const AppHeader = ({ props, username }) => {
           <Flex column className="m-auto" alignItemsCenter>
             <Avatar />
             <p>{username}</p>
+            <span className="role-badge">{userrole}</span>
           </Flex>
         </MenuItem>
         <Divider />
