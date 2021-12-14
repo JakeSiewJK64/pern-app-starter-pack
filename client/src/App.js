@@ -75,7 +75,11 @@ function App() {
     <Fragment>
       <header>
         <ToastContainer />
-        {isAuthenticated ? <AppHeader props={setAuth} username={name} userrole={role}/> : <div></div>}
+        {isAuthenticated ? (
+          <AppHeader props={setAuth} username={name} userrole={role} />
+        ) : (
+          <div></div>
+        )}
         <Switch>
           <Route
             exact
@@ -92,7 +96,7 @@ function App() {
             exact
             path="/users"
             render={(props) =>
-              isAuthenticated ? (
+              isAuthenticated && role === "administrator" ? (
                 <Users {...props} setAuth={setAuth} />
               ) : (
                 <Redirect to="/authentication/login" />
@@ -138,7 +142,7 @@ function App() {
             path="/"
             render={(props) =>
               isAuthenticated ? (
-                <Home {...props} setAuth={setAuth} username={name}/>
+                <Home {...props} setAuth={setAuth} username={name} />
               ) : (
                 <Redirect to="/authentication/login" />
               )

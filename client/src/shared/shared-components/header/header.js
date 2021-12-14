@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import { header_routes, admin_header_routes } from "../../constants";
+import { header_routes } from "../../constants";
 import Flex from "@react-css/flex";
 import { Link } from "react-router-dom";
 import logo from "../../../img/logo.svg";
@@ -14,10 +14,11 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import "./header.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const AppHeader = ({ props, username, userrole }) => {
   const [achorEl, setAnchorEl] = useState(null);
+  const [routes, setRoutes] = useState([]);
   const open = Boolean(achorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,20 +44,7 @@ export const AppHeader = ({ props, username, userrole }) => {
         </Link>
         <Flex className="me-5">
           {header_routes.map((x) => {
-            return (
-              <Link
-                className="m-2 p-2 link-style"
-                to={x.route}
-                key={header_routes.indexOf(x)}
-              >
-                <Button variant="outlined">
-                  <span className="link-style">{x.title}</span>
-                </Button>
-              </Link>
-            );
-          })}
-          {userrole === "administrator" ? (
-            admin_header_routes.map((x) => {
+            if (x.role === undefined) {
               return (
                 <Link
                   className="m-2 p-2 link-style"
@@ -68,10 +56,27 @@ export const AppHeader = ({ props, username, userrole }) => {
                   </Button>
                 </Link>
               );
-            })
-          ) : (
-            <div></div>
-          )}
+            } else if (
+              x.role !== undefined &&
+              x.role.includes("administrator") &&
+              userrole === "administrator"
+            ) {
+              return (
+                <Link
+                  className="m-2 p-2 link-style"
+                  to={x.route}
+                  key={header_routes.indexOf(x)}
+                >
+                  <Button variant="outlined">
+                    <span className="link-style">{x.title}</span>
+                  </Button>
+                </Link>
+              );
+            } else {
+              return <div key={null}></div>;
+            }
+          })}
+
           <Flex>
             <Tooltip title="Account settings">
               <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>

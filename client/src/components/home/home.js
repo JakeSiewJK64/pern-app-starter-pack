@@ -1,6 +1,6 @@
 import logo from "../../img/logo.svg";
 import "./home.css";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 
 const Home = ({ setAuth, username }) => {
   const logout = () => {
