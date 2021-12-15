@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import User from "../../../shared/architecture-api";
-import '../users.css';
+import "../users.css";
 import {
   TableBody,
   TableCell,
@@ -60,17 +59,14 @@ export default function UserTable({ columns, data }) {
 
   const openDialogFunction = (userchoice) => {
     setOpenDialog(true);
-    setSelectedUser(
-      new User(
-        userchoice.row.original.user_id,
-        userchoice.row.original.user_name,
-        userchoice.row.original.user_email,
-        userchoice.row.original.first_name,
-        userchoice.row.original.last_name,
-        "",
-        userchoice.row.original.role_name
-      )
-    );
+    setSelectedUser({
+      user_id: userchoice.row.original.user_id,
+      user_name: userchoice.row.original.user_name,
+      user_email: userchoice.row.original.user_email,
+      user_firstname: userchoice.row.original.first_name,
+      user_lastname: userchoice.row.original.last_name,
+      user_role: userchoice.row.original.role_name,
+    });
   };
 
   return (
