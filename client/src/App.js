@@ -63,8 +63,8 @@ function App() {
   };
 
   useEffect(() => {
-    checkAuthenticated();
     getProfile();
+    checkAuthenticated();
   }, []);
 
   return isLoading ? (
@@ -76,7 +76,7 @@ function App() {
       <header>
         <ToastContainer />
         {isAuthenticated ? (
-          <AppHeader props={setAuth} username={name} userrole={role} />
+            <AppHeader username={name} userrole={role} setAuth={setAuth} />
         ) : (
           <div></div>
         )}

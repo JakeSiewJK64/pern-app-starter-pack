@@ -1,13 +1,9 @@
 import logo from "../../img/logo.svg";
 import "./home.css";
 import React, { Fragment } from "react";
+import LogoutFunction from "../security/logout/logout";
 
 const Home = ({ setAuth, username }) => {
-  const logout = () => {
-    localStorage.removeItem("token");
-    setAuth(false);
-  };
-
   return (
     <Fragment>
       <div className="App">
@@ -25,7 +21,7 @@ const Home = ({ setAuth, username }) => {
             Learn React, {username}
           </a>
           <button
-            onClick={(e) => logout(e)}
+            onClick={(e) => LogoutFunction({setAuth})}
             className="btn btn-danger btn-block"
           >
             Logout

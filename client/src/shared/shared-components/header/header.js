@@ -12,13 +12,17 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
-import Logout from "@mui/icons-material/Logout";
 import "./header.css";
 import { useState, useEffect } from "react";
+import Logout from "@mui/icons-material/Logout";
+import LogoutFunction from "../../../components/security/logout/logout";
 
-export const AppHeader = ({ props, username, userrole }) => {
+export const AppHeader = ({ username, userrole, setAuth }) => {
   const [achorEl, setAnchorEl] = useState(null);
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
   const open = Boolean(achorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -27,10 +31,10 @@ export const AppHeader = ({ props, username, userrole }) => {
     setAnchorEl(null);
   };
 
-  const logout = () => {
-    props(false);
-    localStorage.removeItem("token");
-  };
+  useEffect(() => {
+    setName(username);
+    setRole(userrole);
+  });
 
   return (
     <div className="w-100">
@@ -122,8 +126,8 @@ export const AppHeader = ({ props, username, userrole }) => {
         <MenuItem>
           <Flex column className="m-auto" alignItemsCenter>
             <Avatar />
-            <p>{username}</p>
-            <span className="role-badge">{userrole}</span>
+            <p>{name}</p>
+            <span className="role-badge">{role}</span>
           </Flex>
         </MenuItem>
         <Divider />
@@ -140,7 +144,7 @@ export const AppHeader = ({ props, username, userrole }) => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={logout}>
+        <MenuItem onClick={x => LogoutFunction({setAuth})}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

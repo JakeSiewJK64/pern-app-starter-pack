@@ -46,8 +46,8 @@ const Login = ({ setAuth }) => {
       if (parseRes.jwtToken) {
         localStorage.setItem("token", parseRes.jwtToken);
         setAuth(true);
-        toast.success("Login Complete!");
         window.location.reload();
+        toast.success("Login Complete!");
       } else {
         setAuth(false);
         toast.error(parseRes);
