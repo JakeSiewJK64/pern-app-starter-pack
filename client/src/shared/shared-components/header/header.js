@@ -19,24 +19,12 @@ import LogoutFunction from "../../../shared/shared-components/logout/logout";
 import HeaderMenu from "./headerMenu";
 
 export const AppHeader = ({ username, userrole, setAuth }) => {
-  const [achorEl, setAnchorEl] = useState(null);
   const [name, setName] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [role, setRole] = useState("");
-  const open = Boolean(achorEl);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   useEffect(() => {
     setName(username);
     setRole(userrole);
-    // setIsLoading(false);
   });
 
   return (
@@ -82,9 +70,7 @@ export const AppHeader = ({ username, userrole, setAuth }) => {
               return <div key={"null"}></div>;
             }
           })}
-          <Flex>
-            <HeaderMenu name={name} role={role} setAuth={setAuth} />
-          </Flex>
+        <HeaderMenu name={name} role={role} setAuth={setAuth} />
         </Flex>
       </Flex>
     </div>
