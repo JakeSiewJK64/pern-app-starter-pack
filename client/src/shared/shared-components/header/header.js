@@ -3,29 +3,10 @@ import { header_routes } from "../../constants";
 import Flex from "@react-css/flex";
 import { Link } from "react-router-dom";
 import logo from "../../../img/logo.svg";
-import Avatar from "@mui/material/Avatar";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
 import "./header.css";
-import { useState, useEffect } from "react";
-import Logout from "@mui/icons-material/Logout";
-import LogoutFunction from "../../../shared/shared-components/logout/logout";
 import HeaderMenu from "./headerMenu";
 
 export const AppHeader = ({ username, userrole, setAuth }) => {
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("");
-
-  useEffect(() => {
-    setName(username);
-    setRole(userrole);
-  });
 
   return (
     <div className="w-100">
@@ -70,7 +51,7 @@ export const AppHeader = ({ username, userrole, setAuth }) => {
               return <div key={"null"}></div>;
             }
           })}
-        <HeaderMenu name={name} role={role} setAuth={setAuth} />
+        <HeaderMenu name={username} role={userrole} setAuth={setAuth} />
         </Flex>
       </Flex>
     </div>

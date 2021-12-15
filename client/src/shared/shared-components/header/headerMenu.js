@@ -1,6 +1,4 @@
 import Flex from "@react-css/flex";
-import { Link } from "react-router-dom";
-import logo from "../../../img/logo.svg";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -11,7 +9,7 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import "./header.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Logout from "@mui/icons-material/Logout";
 import LogoutFunction from "../../../shared/shared-components/logout/logout";
 
