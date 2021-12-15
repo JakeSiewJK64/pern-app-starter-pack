@@ -46,6 +46,9 @@ const UserProfile = () => {
               <TextField label="Last Name" fullWidth value={user.last_name} />
             </Flex>
           </Flex>
+          <Flex row gap={10} className="mt-3">
+            <TextField label="My Role" fullWidth value={user.role_name} />
+          </Flex>
         </div>
       </div>
     );
