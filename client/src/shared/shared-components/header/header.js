@@ -15,11 +15,13 @@ import Settings from "@mui/icons-material/Settings";
 import "./header.css";
 import { useState, useEffect } from "react";
 import Logout from "@mui/icons-material/Logout";
-import LogoutFunction from "../../../components/security/logout/logout";
+import LogoutFunction from "../../../shared/shared-components/logout/logout";
+import HeaderMenu from "./headerMenu";
 
 export const AppHeader = ({ username, userrole, setAuth }) => {
   const [achorEl, setAnchorEl] = useState(null);
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [role, setRole] = useState("");
   const open = Boolean(achorEl);
 
@@ -34,6 +36,7 @@ export const AppHeader = ({ username, userrole, setAuth }) => {
   useEffect(() => {
     setName(username);
     setRole(userrole);
+    // setIsLoading(false);
   });
 
   return (
@@ -79,78 +82,11 @@ export const AppHeader = ({ username, userrole, setAuth }) => {
               return <div key={"null"}></div>;
             }
           })}
-
           <Flex>
-            <Tooltip title="Account settings">
-              <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-              </IconButton>
-            </Tooltip>
+            <HeaderMenu name={name} role={role} setAuth={setAuth} />
           </Flex>
         </Flex>
       </Flex>
-      <Menu
-        anchorEl={achorEl}
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            "&:before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      >
-        <MenuItem>
-          <Flex column className="m-auto" alignItemsCenter>
-            <Avatar />
-            <p>{name}</p>
-            <span className="role-badge">{role}</span>
-          </Flex>
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          View my Profile
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem onClick={x => LogoutFunction({setAuth})}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
     </div>
   );
 };

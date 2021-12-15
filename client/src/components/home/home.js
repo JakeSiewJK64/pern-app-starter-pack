@@ -1,7 +1,7 @@
 import logo from "../../img/logo.svg";
 import "./home.css";
 import React, { Fragment } from "react";
-import LogoutFunction from "../security/logout/logout";
+import LogoutFunction from "../../shared/shared-components/logout/logout";
 
 const Home = ({ setAuth, username }) => {
   return (
