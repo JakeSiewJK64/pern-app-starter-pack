@@ -20,3 +20,45 @@
     text-align: center;
     padding: 5px;
 }
+
+.menu-card {
+    position: absolute;
+    right: 3rem;
+    margin-top: 5vh !important;
+    background-color: #fff;
+    animation: menu-card ease .5s;
+    width: 12rem !important;
+
+}
+
+.menu-card .item:hover {
+    background-color: #ecf0f1;
+    cursor: pointer;
+}
+
+.menu-card .item::selection {
+    background-color: #7f8c8d;
+    cursor: pointer;
+}
+
+.menu-card .item {
+    color: #000 !important;
+    text-decoration: none !important;
+    margin-top: 1rem;
+    padding: .5rem;
+    width: 10rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+@keyframes menu-card {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}

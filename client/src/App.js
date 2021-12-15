@@ -9,6 +9,7 @@ import Home from "./components/home/home";
 import Register from "./components/security/register/register";
 import Users from "./components/users/users";
 import Login from "./components/security/login/login";
+import UserProfile from "./components/users/userProfile";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -98,6 +99,17 @@ function App() {
             render={(props) =>
               isAuthenticated && role === "administrator" ? (
                 <Users {...props} setAuth={setAuth} />
+              ) : (
+                <Redirect to="/authentication/login" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/profile"
+            render={(props) =>
+              isAuthenticated && role === "administrator" ? (
+                <UserProfile {...props} setAuth={setAuth} />
               ) : (
                 <Redirect to="/authentication/login" />
               )
