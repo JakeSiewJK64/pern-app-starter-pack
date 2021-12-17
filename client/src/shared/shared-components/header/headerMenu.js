@@ -46,7 +46,7 @@ const HeaderMenu = ({ name, role, setAuth }) => {
                       Profile
                     </Button>
                   </Link>
-                  <Link to="profile">
+                  <Link to="settings">
                     <Button variant="text" className="item">
                       <ListItemIcon>
                         <Settings fontSize="small" />

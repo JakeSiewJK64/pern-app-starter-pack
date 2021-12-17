@@ -10,6 +10,8 @@ import Register from "./components/security/register/register";
 import Users from "./components/users/users";
 import Login from "./components/security/login/login";
 import UserProfile from "./components/users/userProfile";
+import UserSettings from "./components/settings/settings";
+
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -108,8 +110,19 @@ function App() {
             exact
             path="/profile"
             render={(props) =>
-              isAuthenticated && role === "administrator" ? (
+              isAuthenticated ? (
                 <UserProfile {...props} setAuth={setAuth} />
+              ) : (
+                <Redirect to="/authentication/login" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/settings"
+            render={(props) =>
+              isAuthenticated ? (
+                <UserSettings {...props} setAuth={setAuth} />
               ) : (
                 <Redirect to="/authentication/login" />
               )
