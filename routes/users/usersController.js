@@ -30,7 +30,6 @@ router.post("/upsertUser", authorization, async (req, res) => {
   } = req.body;
 
   if (user_id === null) {
-    console.log("this ran");
     const salt = await bcrypt.genSalt(10);
     const bcryptPassword = await bcrypt.hash(user_password, salt);
     const users = await pool.query(

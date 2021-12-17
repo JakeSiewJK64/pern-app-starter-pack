@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import logo from "../../../img/logo.svg";
 import "./header.css";
 import HeaderMenu from "./headerMenu";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import { useSelector } from "react-redux";
 
 export const AppHeader = ({ username, userrole, setAuth }) => {
+  const usersAddCount = useSelector((state) => state.user);
 
   return (
     <div className="w-100">
@@ -18,6 +21,12 @@ export const AppHeader = ({ username, userrole, setAuth }) => {
           </Flex>
         </Link>
         <Flex className="me-5">
+          <Flex className="mt-3 me-1">
+            <PersonAddAltIcon className="bg-primary text-white rounded-circle p-1" style={{ fontSize: "2rem" }} />
+            <div className="rounded-circle bg-danger text-white notification-add-user">
+              {usersAddCount}
+            </div>
+          </Flex>
           {header_routes.map((x) => {
             if (x.role === undefined) {
               return (
@@ -51,7 +60,7 @@ export const AppHeader = ({ username, userrole, setAuth }) => {
               return <div key={"null"}></div>;
             }
           })}
-        <HeaderMenu name={username} role={userrole} setAuth={setAuth} />
+          <HeaderMenu name={username} role={userrole} setAuth={setAuth} />
         </Flex>
       </Flex>
     </div>

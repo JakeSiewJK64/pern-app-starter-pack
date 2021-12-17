@@ -40,7 +40,7 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
       toast.error(p.msg);
     } else {
       toast.success("Success!");
-      dispatch(SetUser(1));
+      setOpen(false);
     }
   };
 
@@ -74,6 +74,7 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
       },
       onSubmit: (val) => {
         submitUser(val);
+        dispatch(SetUser(1));
       },
     });
   };
