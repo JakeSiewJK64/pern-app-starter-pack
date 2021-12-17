@@ -15,12 +15,15 @@ import React from "react";
 import Flex from "@react-css/flex";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { SetUser } from "../../../redux/actions/userActions/latestAddedUser";
 
 export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
   const roleMenu = ["administrator", "contributor", "user"];
   const handleClose = () => {
     setOpen(false);
   };
+  const dispatch = useDispatch();
 
   const submitUser = async (user) => {
     const res = await fetch("/users/upsertUser", {
@@ -37,6 +40,7 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
       toast.error(p.msg);
     } else {
       toast.success("Success!");
+      dispatch(SetUser(1));
     }
   };
 
