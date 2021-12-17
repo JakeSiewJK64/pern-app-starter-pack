@@ -1,3 +1,14 @@
 .user-table-head {
     background-color: #ecf0f1;
 }
+
+.profile-circle:hover {
+    opacity: .6;
+    cursor: pointer;
+}
+
+.edit-icon {
+    z-index: 1;
+    position: absolute;
+    left: 18rem;
+}

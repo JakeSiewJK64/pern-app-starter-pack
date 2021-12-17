@@ -92,7 +92,7 @@ router.post("/verify", authorize, (req, res) => {
 router.get("/userprofile", authorize, async (req, res) => {
   try {
     const user = await pool.query(
-      "SELECT user_name, user_email, first_name, last_name, (SELECT role_name FROM roles WHERE role_id = role) FROM users WHERE user_id = $1",
+      "SELECT user_name, user_email, first_name, last_name, encode(image_url, 'escape') AS image_url, (SELECT role_name FROM roles WHERE role_id = role) FROM users WHERE user_id = $1",
       [req.user]
     );
     res.json(user.rows[0]);

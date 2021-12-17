@@ -2,14 +2,13 @@ const express = require("express");
 const router = express.Router();
 const authorization = require("../authentication/authorize");
 const pool = require("../../db");
-const cors = require("cors");
 const logger = require("../../utils/logger");
 const bcrypt = require("bcrypt");
 
 router.get("/getAllUsers", authorization, async (req, res) => {
   try {
     const users = await pool.query(
-      "SELECT u.user_id, u.user_name, u.user_email,u.first_name,u.last_name, r.role_name FROM users u  LEFT JOIN roles r ON u.role = r.role_id;"
+      "SELECT u.user_id, u.user_name, u.user_email,u.first_name,u.last_name, encode(u.image_url, 'escape') AS image_url, r.role_name FROM users u LEFT JOIN roles r ON u.role = r.role_id;"
     );
     res.json(users.rows);
   } catch (error) {
@@ -27,14 +26,16 @@ router.post("/upsertUser", authorization, async (req, res) => {
     user_firstname,
     user_lastname,
     user_role,
+    image_url,
   } = req.body;
 
   if (user_id === null) {
     const salt = await bcrypt.genSalt(10);
     const bcryptPassword = await bcrypt.hash(user_password, salt);
     const users = await pool.query(
-      "INSERT INTO users(user_name, user_email, user_password, role, first_name, last_name) VALUES ($1,$2,$3,(SELECT role_id FROM roles WHERE role_name = $4),$5,$6)",
+      "INSERT INTO users(image_url, user_name, user_email, user_password, role, first_name, last_name) VALUES ($1,$2,$3,(SELECT role_id FROM roles WHERE role_name = $4),$5,$6)",
       [
+        image_url,
         user_name,
         user_email,
         bcryptPassword,
@@ -61,8 +62,9 @@ router.post("/upsertUser", authorization, async (req, res) => {
         user_email = $2,
         role = (SELECT role_id FROM roles WHERE role_name = $3),
         first_name = $4,
-        last_name = $5
-        WHERE user_id = $6
+        last_name = $5,
+        image_url = $6
+        WHERE user_id = $7
         `,
         [
           user_name,
@@ -70,6 +72,7 @@ router.post("/upsertUser", authorization, async (req, res) => {
           user_role,
           user_firstname,
           user_lastname,
+          image_url,
           user_id,
         ]
       );

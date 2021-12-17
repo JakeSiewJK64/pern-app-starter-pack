@@ -28,7 +28,7 @@ const UserProfile = () => {
         <Flex column className="m-auto p-3">
           <h2>My Profile</h2>
           <img
-            src={profile}
+            src={user.image_url ? user.image_url : profile}
             alt="profile"
             draggable={false}
             style={{ width: "5rem" }}

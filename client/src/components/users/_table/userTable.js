@@ -60,6 +60,7 @@ export default function UserTable({ columns, data }) {
   const openDialogFunction = (userchoice) => {
     setOpenDialog(true);
     setSelectedUser({
+      image_url: userchoice.row.original.image_url,
       user_id: userchoice.row.original.user_id,
       user_name: userchoice.row.original.user_name,
       user_email: userchoice.row.original.user_email,

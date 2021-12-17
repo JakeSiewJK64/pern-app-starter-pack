@@ -11,19 +11,27 @@ import {
   MenuItem,
   DialogTitle,
 } from "@mui/material";
-import React from "react";
+
+import EditIcon from "@mui/icons-material/Edit";
+
+import React, { useRef } from "react";
 import Flex from "@react-css/flex";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { SetUser } from "../../../redux/actions/userActions/latestAddedUser";
+import profile from "../../../img/empty-profile.png";
+import "../users.css";
 
 export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
   const roleMenu = ["administrator", "contributor", "user"];
+  const dispatch = useDispatch();
+  var formik;
+  var imageRef;
+
   const handleClose = () => {
     setOpen(false);
   };
-  const dispatch = useDispatch();
 
   const submitUser = async (user) => {
     const res = await fetch("/users/upsertUser", {
@@ -44,11 +52,11 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
     }
   };
 
-  var formik;
   const GetFormikConfig = () => {
     formik = useFormik({
       initialValues: {
         user_name: userData.user_name,
+        image_url: userData.image_url,
         user_email: userData.user_email,
         user_role: userData.user_role,
         user_firstname: userData.user_firstname,
@@ -65,6 +73,7 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
     formik = useFormik({
       initialValues: {
         user_id: null,
+        image_url: "",
         user_name: "",
         user_email: "",
         user_password: "",
@@ -79,10 +88,38 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
     });
   };
 
+  const GetImageRef = () => {
+    imageRef = useRef();
+  };
+
   if (isOpen) {
+    GetImageRef();
+
+    const onImageUploadClick = () => {
+      imageRef.current.click();
+    };
+
+    const handleFileInputChange = (e) => {
+      var reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = (x) => {
+        var file = x.target.result.toString();
+        formik.values.image_url = file;
+      };
+    };
+
     userData ? GetFormikConfig() : SetAddNewUser();
+
     return (
       <div>
+        <input
+          ref={imageRef}
+          type="file"
+          id="file"
+          onChange={handleFileInputChange}
+          accept="image/*"
+          style={{ display: "none" }}
+        />
         <Dialog open={isOpen}>
           <form onSubmit={formik.handleSubmit}>
             <DialogTitle>
@@ -94,6 +131,19 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
                 To subscribe to this website, please enter your email address
                 here. We will send updates occasionally.
               </DialogContentText>
+              <Flex alignItemsCenter>
+                <img
+                  src={
+                    formik.values.image_url ? formik.values.image_url : profile
+                  }
+                  alt="profile"
+                  draggable={false}
+                  onClick={onImageUploadClick}
+                  style={{ width: "5rem", zIndex: 2 }}
+                  className="m-3 rounded-circle m-auto profile-circle"
+                />
+                <EditIcon fontSize="medium" className="edit-icon" />
+              </Flex>
               <Flex row gap={10}>
                 <TextField
                   autoFocus
