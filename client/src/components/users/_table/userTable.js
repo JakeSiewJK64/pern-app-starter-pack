@@ -17,16 +17,7 @@ export default function UserTable({ columns, data }) {
   const [paginatorPage, setPaginatorPage] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const [user, setSelectedUser] = useState(null);
-  const [rowNumberSelection] = useState([
-    2,
-    5,
-    10,
-    15,
-    20,
-    50,
-    100,
-    { label: "ALL", value: data.length },
-  ]);
+  const [rowNumberSelection] = useState([2, 5, 10, 15, 20, 50, 100]);
   const {
     getTableProps,
     getTableBodyProps,
@@ -96,7 +87,6 @@ export default function UserTable({ columns, data }) {
               return (
                 <TableRow {...row.getRowProps()}>
                   {row.cells.map((cell) => {
-                    console.log();
                     return (
                       <TableCell
                         {...cell.getCellProps()}
@@ -115,7 +105,9 @@ export default function UserTable({ columns, data }) {
                             </p>
                           ) : (
                             // For Normal Users
-                            <p className="badge badge-pill bg-warning text-white">{cell.render("Cell")}</p>
+                            <p className="badge badge-pill bg-warning text-white">
+                              {cell.render("Cell")}
+                            </p>
                           )
                         ) : (
                           // For Normal Cells

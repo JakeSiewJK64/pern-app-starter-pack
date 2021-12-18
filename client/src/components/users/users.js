@@ -37,9 +37,6 @@ const Users = () => {
       Header: "Role",
       accessor: "role_name",
       width: 40,
-      style: {
-      },
-      className: ""
     },
   ]);
 
