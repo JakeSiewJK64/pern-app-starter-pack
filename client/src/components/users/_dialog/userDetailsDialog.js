@@ -116,6 +116,7 @@ export default function UserDetailsDialog({ isOpen, setOpen, userData }) {
           ref={imageRef}
           type="file"
           id="file"
+          name="image_url"
           onChange={handleFileInputChange}
           accept="image/*"
           style={{ display: "none" }}

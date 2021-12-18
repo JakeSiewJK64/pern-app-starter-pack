@@ -96,6 +96,7 @@ export default function UserTable({ columns, data }) {
               return (
                 <TableRow {...row.getRowProps()}>
                   {row.cells.map((cell) => {
+                    console.log();
                     return (
                       <TableCell
                         {...cell.getCellProps()}
@@ -103,7 +104,23 @@ export default function UserTable({ columns, data }) {
                           openDialogFunction(cell);
                         }}
                       >
-                        {cell.render("Cell")}
+                        {cell.column.Header === "Role" ? (
+                          cell.row.original.role_name === "administrator" ? (
+                            <p className="badge badge-pill bg-primary text-white">
+                              {cell.render("Cell")}
+                            </p>
+                          ) : cell.row.original.role_name === "contributor" ? (
+                            <p className="badge badge-pill bg-danger text-white">
+                              {cell.render("Cell")}
+                            </p>
+                          ) : (
+                            // For Normal Users
+                            <p className="badge badge-pill bg-warning text-white">{cell.render("Cell")}</p>
+                          )
+                        ) : (
+                          // For Normal Cells
+                          <p>{cell.render("Cell")}</p>
+                        )}
                       </TableCell>
                     );
                   })}

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { Card, Button } from "@material-ui/core";
+import { Card, Button, IconButton } from "@material-ui/core";
 import UserTable from "./_table/userTable";
-import AddIcon from "@mui/icons-material/Add";
 import LoadingSpinner from "../../shared/shared-components/loadingSpinner/loadingSpinner";
-import { Stack } from "@mui/material";
+import Flex from "@react-css/flex";
 import UserDetailsDialog from "./_dialog/userDetailsDialog";
+
+import RefreshIcon from "@mui/icons-material/Refresh";
+import AddIcon from "@mui/icons-material/Add";
 
 const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,6 +32,15 @@ const Users = () => {
       accessor: "user_email",
       width: 40,
     },
+    {
+      id: "col4",
+      Header: "Role",
+      accessor: "role_name",
+      width: 40,
+      style: {
+      },
+      className: ""
+    },
   ]);
 
   const fetchUsers = async () => {
@@ -52,22 +63,27 @@ const Users = () => {
 
   useEffect(() => {
     fetchUsers();
-  });
+  }, []);
 
   if (isLoading) {
+    fetchUsers();
     return <LoadingSpinner />;
   } else {
     return (
       <div className="w-75 m-auto">
         <UserDetailsDialog
           isOpen={openDialog}
+          setUsers={setUsers}
           setOpen={setOpenDialog}
           userData={null}
         />
         <Card elevation={12} className="w-75 m-auto">
-          <Stack direction="row" className="m-4">
+          <Flex row className="m-4">
             <h2>Users</h2>
-            <Stack className="ms-auto">
+            <Flex row className="ms-auto" gap={5}>
+              <IconButton onClick={fetchUsers}>
+                <RefreshIcon />
+              </IconButton>
               <Button
                 onClick={openDialogFunction}
                 variant="contained"
@@ -77,8 +93,8 @@ const Users = () => {
               >
                 Add User
               </Button>
-            </Stack>
-          </Stack>
+            </Flex>
+          </Flex>
           <UserTable
             columns={columns}
             data={users}
