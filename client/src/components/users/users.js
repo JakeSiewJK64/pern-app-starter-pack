@@ -46,13 +46,13 @@ const Users = () => {
       });
   };
 
-  const openDialogFunction = (userchoice) => {
+  const openDialogFunction = () => {
     setOpenDialog(true);
   };
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  });
 
   if (isLoading) {
     return <LoadingSpinner />;
